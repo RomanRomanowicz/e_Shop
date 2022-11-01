@@ -1,6 +1,6 @@
 from django.contrib import admin
-from store.models.category import Category
-from store.models.order import *
+from store.models.category import Category, CategoryGender
+from store.models.order import Order, OrderItem
 from store.models.products import Products
 
 
@@ -19,5 +19,13 @@ class ProductsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
+admin.site.register(Products, ProductsAdmin)
 admin.site.register(Order)
 admin.site.register(OrderItem)
+# admin.site.register(CategoryGender)
+
+
+@admin.register(CategoryGender)
+class CategoryGender(admin.ModelAdmin):
+    list_display =('gender', 'name', 'slug')
+    prepopulated_fields = {"slug": ("gender", )}

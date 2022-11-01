@@ -1,10 +1,11 @@
 from django.db import models
-from .category import Category
+from .category import Category, CategoryGender
 from django.urls import reverse
 
 
 class Products(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='категория')
+    gender = models.ForeignKey(CategoryGender, on_delete=models.CASCADE, related_name='products', verbose_name='Категория по полу')
     name = models.CharField(max_length=200, db_index=True, verbose_name='наименование товара')
     slug = models.SlugField(max_length=200, db_index=True, verbose_name='SLUG')
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True, verbose_name='фото')
@@ -24,7 +25,7 @@ class Products(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('store:product_list', args=[self.id, self.slug])
+        return reverse('store:shop_list', args=[self.id, self.slug])
 
     @staticmethod
     def get_products_by_id(ids):
