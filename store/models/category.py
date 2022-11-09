@@ -19,23 +19,48 @@ class Category(models.Model):
 
 
 class CategoryGender(models.Model):
-    CATEGORY_GENDER = (
-        ('M', "Men's dresses"),
-        ('W', "Women's dresses"),
-        ('B', "Baby's dresses"),
-    )
-    gender = models.CharField(max_length=1, choices=CATEGORY_GENDER, blank=True, default='d', help_text='Категория по полу')
+    gender = models.CharField(max_length=200, db_index=True, blank=True, null=True, verbose_name='Категория по полу')
     slug = models.SlugField(max_length=200, db_index=True, unique=True, verbose_name='SLUG')
-    name = models.CharField(max_length=200, db_index=True, blank=True, null=True, verbose_name='Категория по полу')
-
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('gender',)
         verbose_name = 'Категория'
         verbose_name_plural = 'Категория по полу'
 
     def __str__(self):
-        return self.name
+        return self.gender
 
     def get_absolute_url(self):
         return reverse('store:gender_list', args=[self.slug])
+
+
+class CategoryColor(models.Model):
+    color = models.CharField(max_length=200, db_index=True, verbose_name='Категория по цвету')
+    slug = models.SlugField(max_length=200, db_index=True, unique=True, verbose_name='SLUG')
+
+    class Meta:
+        ordering = ('color',)
+        verbose_name = 'Категория по цвету'
+        verbose_name_plural = 'Категория по цвету'
+
+    def __str__(self):
+        return self.color
+
+    # def get_absolute_url(self):
+    #     return reverse('store:category_list', args=[self.slug])
+
+
+class CategorySize(models.Model):
+    size = models.CharField(max_length=200, db_index=True, verbose_name='Категория по размеру')
+    slug = models.SlugField(max_length=200, db_index=True, unique=True, verbose_name='SLUG')
+
+    class Meta:
+        ordering = ('size',)
+        verbose_name = 'Категория по размеру'
+        verbose_name_plural = 'Категория по размеру'
+
+    def __str__(self):
+        return self.size
+
+    # def get_absolute_url(self):
+    #     return reverse('store:category_list', args=[self.slug])

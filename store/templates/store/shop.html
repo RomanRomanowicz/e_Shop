@@ -106,11 +106,15 @@
                             <label class="custom-control-label" for="size-all">All Size</label>
                             <span class="badge border font-weight-normal">1000</span>
                         </div>
+
+                        {% for c in shop.get_category %} filtry do zrobienia
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="size-1">
-                            <label class="custom-control-label" for="size-1">XS</label>
+                            <label class="custom-control-label" for="size-1">{{ c.image }}</label>
                             <span class="badge border font-weight-normal">150</span>
                         </div>
+                        {% endfor %}
+
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="size-2">
                             <label class="custom-control-label" for="size-2">S</label>
@@ -166,12 +170,12 @@
                             </div>
                         </div>
                     </div>
-                    {% for product in products %}
+                    {% for product in shop %}
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                 <a href="{{ product.get_absolute_url }}">
-                                    <img class="card-img-top" alt="produkt" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.jpg' %}{% endif %}">
+                                    <img class="card-img-top" alt="product" src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no_image.jpg' %}{% endif %}">
                                 </a>
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
